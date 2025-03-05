@@ -1,3 +1,7 @@
+<?php
+$db = new PDO('mysql:host=localhost;dbname=baza','root','');
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,10 +25,37 @@
         <img src="logo2.png" alt="Mój organizer">
     </div>
     <main>
-    
+                                         <!-- srkypt 1 -->
+        <?php
+            $stmt = $db->query("SELECT dataZadania, miesiac, wpis FROM zadania WHERE miesiac = 'sierpien'");
+            $dane = $stmt->fetchAll();   
+        ?>
+            
+        <?php foreach($dane as $d): ?>
+            <div class='dzien'>
+                <h6><?= $d["dataZadania"] ?> , <?= $d['miesiac'] ?></h6>
+                <p><?= $d["wpis"] ?> </p>
+            </div>
+        <?php endforeach; ?>
     </main>
     <footer>
-
+                                            <!-- srkypt 2 -->
+    <?php
+            $stmt = $db->query("SELECT miesiac, rok FROM zadania WHERE dataZadania = '2020-08-01'");
+            $dane = $stmt->fetchAll();   
+        ?>
+            
+        <?php foreach($dane as $d): ?>
+            
+             <h1>miesiac: <?=$d["miesiac"] ?> ,rok <?= $d['rok'] ?></h1>
+            
+            
+                
+          
+        <?php endforeach; ?>
     </footer>
 </body>
 </html>
+<?php
+unset($db);
+?>
